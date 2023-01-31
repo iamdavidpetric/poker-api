@@ -9,6 +9,6 @@
 #  updated_at :datetime         not null
 #
 class User < ApplicationRecord
-  has_many :games, through: :players
+  # has_many :games, through: :players
   has_many :players
 end

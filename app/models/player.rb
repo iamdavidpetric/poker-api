@@ -22,4 +22,14 @@
 class Player < ApplicationRecord
   belongs_to :user
   belongs_to :game
+
+  def profit
+    if game.first_place_id === id
+      game.first_place_profit
+    elsif game.second_place_id === id
+      game.second_place_profit
+    else
+      game.entry_fee * rebuy
+    end
+  end
 end

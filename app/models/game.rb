@@ -23,4 +23,18 @@
 class Game < ApplicationRecord
   has_many :players
   has_many :users, through: :players
+  has_one :first_place, class_name: 'Player', foreign_key: 'user_id'
+  has_one :second_place, class_name: 'Player', foreign_key: 'user_id'
+
+  def pot
+    entry_fee * (players.count + players.sum(:rebuy))
+  end
+
+  def first_place_profit
+    pot - entry_fee - (first_place.rebuy * entry_fee) - second_place_profit
+  end
+
+  def second_place_profit
+    entry_fee + (second_place.rebuy * entry_fee)
+  end
 end
